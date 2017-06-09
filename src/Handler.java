@@ -43,6 +43,7 @@ public class Handler implements Runnable {
     private void stopMusic(){
         Process p = null;
         Process q = null;
+        Process r = null;
         try {
             String[] cmd = { "/usr/bin/notify-send",
                     "-t",
@@ -52,6 +53,9 @@ public class Handler implements Runnable {
             p = Runtime.getRuntime().exec("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause");
             p.waitFor();
 
+            r = Runtime.getRuntime().exec("amixer -q -D pulse sset Master mute");
+            r.waitFor();
+
             q = Runtime.getRuntime().exec(cmd);
             q.waitFor();
         } catch (Exception e) {
@@ -59,6 +63,7 @@ public class Handler implements Runnable {
         }finally {
             if(p!=null) p.destroy();
             if(q!=null) q.destroy();
+            if(r!=null) r.destroy();
         }
     }
 
