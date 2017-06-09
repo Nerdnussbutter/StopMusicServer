@@ -5,6 +5,7 @@ import java.net.InetAddress;
 
 /**
  * Created by jonas on 27.03.17.
+ * Test for test sake
  */
 public class Handler implements Runnable {
 
